@@ -37,14 +37,14 @@ As with all jQuery plugins, just ensure that you load jQuery and Mustache before
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
-    <script src="../dest/js/weather-widget.min.js"></script>
+    <script src="../dist/js/weather-widget.min.js"></script>
 
 **Usage**
 
 ```bash
   $("#weather-widget").weatherWidget({
       city: "Kyiv",
-      templateUrl: "../dest/templates/weather-widget.tpl.min.html"
+      templateUrl: "../dist/templates/weather-widget.tpl.min.html"
   });
 ```
 

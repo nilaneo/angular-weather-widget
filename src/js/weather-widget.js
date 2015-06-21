@@ -1,7 +1,7 @@
 (function() {
 	var DEFAULTS_OPTIONS = {
 		city: 'Kiev',
-		templateUrl: "/dest/templates/weather-widget.tpl.min.html"
+		templateUrl: "/dist/templates/weather-widget.tpl.min.html"
 	};
 
 	function getDayByTimestamp (timestamp) {
