@@ -15,17 +15,55 @@
         <![endif]-->
     </head>
     <body>
-        <div id="weather-widget"></div>
+        <div ng-app="exampleApp">
+            <nn-weather-widget city="Kyiv"></nn-weather-widget>
+        </div>
 
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
-        <script src="../dist/js/weather-widget.min.js"></script>
-        
-        <script>
-            $("#weather-widget").weatherWidget({
-                city: "Kyiv",
-                templateUrl: "../dist/templates/weather-widget.tpl.min.html"
-            });
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
+        <!-- <script src="../dist/js/weather-widget.min.js"></script> -->
+
+        <script type="text/javascript">
+            angular
+                .module('nnWeather', [])
+
+                .factory('nnWeatherService', function($http) {
+                    return {
+                        getForecast: function(city) {
+                            return $http
+                                .get('http://api.openweathermap.org/data/2.5/forecast/daily', {
+                                    params: {
+                                        q: city,
+                                        units: "metric",
+                                        cnt: 7
+                                    }
+                                })
+                                .then(function(resp) {
+                                    return resp.data;
+                                });
+                        }
+                    };
+                })
+
+                .directive('nnWeatherWidget', function() {
+                    return {
+                        scope: {
+                            city: '@'
+                        },
+                        templateUrl: '../dist/templates/super-widget.tpl.min.html',
+                        controller: function($scope, nnWeatherService) {
+                            $scope.forecast = null;
+
+                            nnWeatherService
+                                .getForecast($scope.city)
+                                .then(function(forecast) {
+                                    $scope.forecast = forecast;
+                                });
+                        }
+                    };
+                });
+
+            angular.module('exampleApp', ['nnWeather']);
         </script>
     </body>
 </html>

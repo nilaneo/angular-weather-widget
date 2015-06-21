@@ -3,20 +3,20 @@ module.exports = function(grunt) {
       JS_DIST_PATH = 'dist/js/weather-widget.min.js',
       CSS_SRC_PATH = 'src/css/weather-widget.css',
       CSS_DIST_PATH = 'dist/css/weather-widget.min.css',
-      HTML_SRC_PATH = 'src/templates/weather-widget.tpl.html',
-      HTML_DIST_PATH = 'dist/templates/weather-widget.tpl.min.html';
+      HTML_SRC_PATH = 'src/templates/super-widget.tpl.html',
+      HTML_DIST_PATH = 'dist/templates/super-widget.tpl.min.html';
 
   grunt.initConfig({
     uglify: {
       dist: {
         src: JS_SRC_PATH,
-        dist: JS_DIST_PATH
+        dest: JS_DIST_PATH
       } 
     },
     cssmin: {
       dist: {
         src: CSS_SRC_PATH,
-        dist: CSS_DIST_PATH
+        dest: CSS_DIST_PATH
       }
     },
     htmlmin: {                                     
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
           collapseWhitespace: true
         },                               
         src: HTML_SRC_PATH,
-        dist: HTML_DIST_PATH
+        dest: HTML_DIST_PATH
       }
     },
     copy: {
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
         expand: true,
         cwd: 'src/fonts',
         src: '*',
-        dist: 'dist/fonts/'
+        dest: 'dist/fonts/'
       }
     },
     connect: {
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
       }
     },
     clean: {
-      dist: 'dist/**/*'
+      dest: 'dist/**/*'
     }
   });
 
