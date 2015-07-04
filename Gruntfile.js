@@ -3,8 +3,8 @@ module.exports = function(grunt) {
       JS_DIST_PATH = 'dist/js/weather-widget.min.js',
       CSS_SRC_PATH = 'src/css/weather-widget.css',
       CSS_DIST_PATH = 'dist/css/weather-widget.min.css',
-      HTML_SRC_PATH = 'src/templates/super-widget.tpl.html',
-      HTML_DIST_PATH = 'dist/templates/super-widget.tpl.min.html';
+      HTML_SRC_PATH = 'src/templates/weather-widget.tpl.html',
+      HTML_DIST_PATH = 'dist/templates/weather-widget.tpl.min.html';
 
   grunt.initConfig({
     uglify: {

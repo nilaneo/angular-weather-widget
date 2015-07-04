@@ -1,117 +1,98 @@
 (function() {
-	var DEFAULTS_OPTIONS = {
-		city: 'Kiev',
-		templateUrl: "/dist/templates/weather-widget.tpl.min.html"
-	};
+    'use strict';
 
-	function getDayByTimestamp (timestamp) {
-		return new Date(timestamp).toString().match(/^\w*/)[0];
-	}
+    angular.module('nnWeather', [])
 
-	var templateCache = {};
+        .factory('nnWeatherService', ['$http', function($http) {
+            function getForecast(city) {
+                return $http
+                    .get('http://api.openweathermap.org/data/2.5/forecast/daily', {
+                        params: {
+                            q: city,
+                            units: 'metric',
+                            cnt: 7
+                        }
+                    })
+                    .then(function(resp) {
+                        return _prepareDateToRender(resp.data);
+                    });
+            }
 
-	function getTemplateFromCache (templateUrl) {
-		return templateCache[templateUrl];
-	}
+            function _prepareDateToRender (data) {
+                return {
+                    cityName: data.city.name,
+                    forecast: data.list.map(_prepareDataListItem)
+                };
+            }
 
-	function addTemplateToCache (templateUrl, templatePromise) {
-		templateCache[templateUrl] = templatePromise;
-	}
+            function _prepareDataListItem (listItem) {
+                return {
+                    day: _getDayByTimestamp(listItem.dt * 1000),
+                    minTemp: listItem.temp.min,
+                    maxTemp: listItem.temp.max,
+                    dayTemp: listItem.temp.day,
+                    iconClass: _replaceIconWithIconClass(listItem.weather[0].icon)
+                };
+            }
 
-	function getTemplateFromServer (templateUrl) {
-		return $.get(templateUrl).then(function(template) {
-			return template;
-		});
-	}
+            function _getDayByTimestamp (timestamp) {
+                return new Date(timestamp).toString().match(/^\w*/)[0];
+            }
 
-	function getTemplateFromServerAndAddToCache (templateUrl) {
-		var templatePromise = getTemplateFromServer(templateUrl)
-		addTemplateToCache(templateUrl, templatePromise);
-		return templatePromise;
-	}
+            function _replaceIconWithIconClass (iconName) {
+                switch (iconName) {
+                    case '01d':
+                    case '01n':
+                        return 'ww-icon-clear-sky';
+                    case '02d':
+                    case '02n':
+                        return 'ww-icon-few-clouds';
+                    case '03d':
+                    case '03n':
+                        return 'ww-icon-scattered-clouds'
+                    case '04d':
+                    case '04n':
+                        return 'ww-icon-broken-clouds '
+                    case '09d':
+                    case '09n':
+                        return 'ww-icon-shower-rain '
+                    case '10d':
+                    case '10n':
+                        return 'ww-icon-rain'
+                    case '11d':
+                    case '11n':
+                        return 'ww-icon-thunderstorm'
+                    case '13d':
+                    case '13n':
+                        return 'ww-icon-snow'
+                    case '50d':
+                    case '50n':
+                        return 'ww-icon-mist'
+                    default:
+                        return '';
+                }
+            }
 
-	function getTemplate (options) {
-		var templateUrl = options.templateUrl;
-		return getTemplateFromCache(templateUrl) || getTemplateFromServerAndAddToCache(templateUrl);
-	}
+            return {
+                getForecast: getForecast
+            };
+        }])
 
-	function prepareDataListItem (listItem) {
-		return {
-			day: getDayByTimestamp(listItem.dt * 1000),
-			minTemp: listItem.temp.min,
-			maxTemp: listItem.temp.max,
-			dayTemp: listItem.temp.day,
-			iconClass: replaceIconWithIconClass(listItem.weather[0].icon)
-		};
-	}
+        .directive('nnWeatherWidget', [function() {
+            return {
+                scope: {
+                    city: '@'
+                },
+                templateUrl: '../dist/templates/weather-widget.tpl.min.html',
+                controller: ['$scope', 'nnWeatherService', function($scope, nnWeatherService) {
+                    $scope.forecast = null;
 
-	function prepareDateToRender (data) {
-		return {
-			cityName: data.city.name,
-			forecast: data.list.map(prepareDataListItem)
-		};
-	}
-
-	function replaceIconWithIconClass (iconName) {
-		switch (iconName) {
-			case "01d":
-			case "01n":
-				return "ww-icon-clear-sky";
-			case "02d":
-			case "02n":
-				return "ww-icon-few-clouds";
-			case "03d":
-			case "03n":
-				return "ww-icon-scattered-clouds"
-			case "04d":
-			case "04n":
-				return "ww-icon-broken-clouds "
-			case "09d":
-			case "09n":
-				return "ww-icon-shower-rain "
-			case "10d":
-			case "10n":
-				return "ww-icon-rain"
-			case "11d":
-			case "11n":
-				return "ww-icon-thunderstorm"
-			case "13d":
-			case "13n":
-				return "ww-icon-snow"
-			case "50d":
-			case "50n":
-				return "ww-icon-mist"
-			default:
-				return "";
-		}
-	}
-
-	function getDataFromAPI(options) {
-		return $.get("http://api.openweathermap.org/data/2.5/forecast/daily", {
-			q: options.city,
-			units: "metric",
-			cnt: 7
-		}).then(prepareDateToRender);
-	}
-
-	function getDataAndTemplate (options) {
-		return $.when(getDataFromAPI(options), getTemplate(options));
-	}
-
-	function renderDataAndTemplateToHTML (dataToRender, template) {
-		return Mustache.render(template, dataToRender);
-	}
-
-	function makeWeatherWidget(widgetContainer, options) {
-		getDataAndTemplate(options)
-			.then(renderDataAndTemplateToHTML)
-			.then(function(widgetHTML) {
-				widgetContainer.html(widgetHTML);
-			});
-	}
-
-	$.fn.weatherWidget = function weatherWidget(options) {
-		var optionsWithDefaults = $.extend({}, DEFAULTS_OPTIONS, options);
-		makeWeatherWidget(this, optionsWithDefaults);
-	};
+                    nnWeatherService
+                        .getForecast($scope.city)
+                        .then(function(forecast) {
+                            $scope.forecast = forecast;
+                        });
+                }]
+            };
+        }]);
 }());
