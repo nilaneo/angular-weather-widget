@@ -28,9 +28,9 @@
             function _prepareDataListItem (listItem) {
                 return {
                     day: _getDayByTimestamp(listItem.dt * 1000),
-                    minTemp: listItem.temp.min,
-                    maxTemp: listItem.temp.max,
-                    dayTemp: listItem.temp.day,
+                    minTemp: Math.round(listItem.temp.min),
+                    maxTemp: Math.round(listItem.temp.max),
+                    dayTemp: Math.round(listItem.temp.day),
                     iconClass: _replaceIconWithIconClass(listItem.weather[0].icon)
                 };
             }
