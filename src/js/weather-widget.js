@@ -43,31 +43,31 @@
                 switch (iconName) {
                     case '01d':
                     case '01n':
-                        return 'ww-icon-clear-sky';
+                        return 'nn-icon-clear-sky';
                     case '02d':
                     case '02n':
-                        return 'ww-icon-few-clouds';
+                        return 'nn-icon-few-clouds';
                     case '03d':
                     case '03n':
-                        return 'ww-icon-scattered-clouds'
+                        return 'nn-icon-scattered-clouds'
                     case '04d':
                     case '04n':
-                        return 'ww-icon-broken-clouds '
+                        return 'nn-icon-broken-clouds '
                     case '09d':
                     case '09n':
-                        return 'ww-icon-shower-rain '
+                        return 'nn-icon-shower-rain '
                     case '10d':
                     case '10n':
-                        return 'ww-icon-rain'
+                        return 'nn-icon-rain'
                     case '11d':
                     case '11n':
-                        return 'ww-icon-thunderstorm'
+                        return 'nn-icon-thunderstorm'
                     case '13d':
                     case '13n':
-                        return 'ww-icon-snow'
+                        return 'nn-icon-snow'
                     case '50d':
                     case '50n':
-                        return 'ww-icon-mist'
+                        return 'nn-icon-mist'
                     default:
                         return '';
                 }
@@ -85,12 +85,14 @@
                 },
                 templateUrl: '../dist/templates/weather-widget.tpl.min.html',
                 controller: ['$scope', 'nnWeatherService', function($scope, nnWeatherService) {
+                    $scope.cityName = null;
                     $scope.forecast = null;
 
                     nnWeatherService
                         .getForecast($scope.city)
-                        .then(function(forecast) {
-                            $scope.forecast = forecast;
+                        .then(function(data) {
+                            $scope.cityName = data.cityName;
+                            $scope.forecast = data.forecast;
                         });
                 }]
             };

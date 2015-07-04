@@ -1,5 +1,24 @@
-<div ng-show="forecast">
-	<pre>
-		{{ forecast | json }}
-	</pre>
+<div class="nn-weather-widget" ng-show="forecast">
+    <div class="nn-current-day nn-clearfix">
+        <div class="nn-current-day-temp">
+            <div>Max: {{forecast[0].maxTemp}}&#8451;</div>
+            <div class="nn-current-temp">{{forecast[0].dayTemp}}&#8451;</div>
+            <div>Min: {{forecast[0].minTemp}}&#8451;</div>
+        </div>
+        <i class="nn-icon nn-icon-current-day {{forecast[0].iconClass}}"></i>
+        <div class="nn-day-and-location">
+            <div class="nn-current-day-name">{{forecast[0].day}}</div>
+            <div class="nn-city">{{cityName}}</div>
+        </div>
+    </div>
+    <div class="nn-forecast-week nn-clearfix">
+        <div class="nn-forecast-day" ng-repeat="dayForecast in forecast">
+            <div class="nn-forecast-day-name">{{dayForecast.day}}</div>
+            <div class="nn-icon-wrapper">
+                <i class="nn-icon {{dayForecast.iconClass}}"></i>
+            </div>
+            <div class="nn-temp-day">{{dayForecast.maxTemp}}&#8451;</div>
+            <div class="nn-temp-night">{{dayForecast.minTemp}}&#8451;</div>
+        </div>
+    </div>
 </div>

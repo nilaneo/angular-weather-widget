@@ -11,66 +11,66 @@
     font-style: normal;
 }
 
-.ww-icon:before {
+.nn-icon:before {
     display: inline-block;
 	font-family: 'MeteoconsRegular';
 	content: attr(data-meteocon-icon);
     font-style: normal;
 }
 
-.ww-icon-clear-sky:before,
-.ww-icon-few-clouds:before {
+.nn-icon-clear-sky:before,
+.nn-icon-few-clouds:before {
     color: #f2b502;
 }
 
-.ww-icon-scattered-clouds:before,
-.ww-icon-broken-clouds:before,
-.ww-icon-shower-rain:before,
-.ww-icon-rain:before,
-.ww-icon-thunderstorm:before,
-.ww-icon-snow:before {
+.nn-icon-scattered-clouds:before,
+.nn-icon-broken-clouds:before,
+.nn-icon-shower-rain:before,
+.nn-icon-rain:before,
+.nn-icon-thunderstorm:before,
+.nn-icon-snow:before {
     color: #168fc6;
 }
 
-.ww-icon-clear-sky:before {
+.nn-icon-clear-sky:before {
     content: 'B';
 }
 
-.ww-icon-few-clouds:before {
+.nn-icon-few-clouds:before {
     content: 'A';
 }
 
-.ww-icon-scattered-clouds:before {
+.nn-icon-scattered-clouds:before {
     content: 'N';
 }
 
-.ww-icon-broken-clouds:before {
+.nn-icon-broken-clouds:before {
     content: 'Y';
 }
 
-.ww-icon-shower-rain:before {
+.nn-icon-shower-rain:before {
     content: 'R';
 }
 
-.ww-icon-rain:before {
+.nn-icon-rain:before {
     content: 'Q';
 }
 
-.ww-icon-thunderstorm:before {
+.nn-icon-thunderstorm:before {
     content: '0';
 }
 
-.ww-icon-snow:before {
+.nn-icon-snow:before {
     content: 'W';
 }
 
-.ww-icon-mist:before {
+.nn-icon-mist:before {
     content: 'M';
     color: #5db6df;
 }
 
-.ww-clearfix:before,
-.ww-clearfix:after {
+.nn-clearfix:before,
+.nn-clearfix:after {
     content: ".";
     display: block;
     height: 0;
@@ -78,11 +78,11 @@
     zoom: 1; /* IE < 8 */
 }
 
-.ww-clearfix:after {
+.nn-clearfix:after {
     clear: both;
 }
 
-.ww-weather-widget {
+.nn-weather-widget {
     width: 425px;
     height: 230px;
     padding: 15px;
@@ -93,54 +93,54 @@
     text-transform: uppercase;
 }
 
-.ww-weather-widget * {
+.nn-weather-widget * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing:    border-box;
     box-sizing:         border-box;
 }
 
-.ww-current-temp {
+.nn-current-temp {
     font-size: 34px;
     font-weight: bold;
 }
 
-.ww-city {
+.nn-city {
     font-weight: bold;
 }
 
-.ww-temp-day,
-.ww-temp-night {
+.nn-temp-day,
+.nn-temp-night {
     font-size: 12px;
     font-weight: bold;
 }
 
-.ww-temp-day {
+.nn-temp-day {
     line-height: 26px;
 }
 
-.ww-temp-night {
+.nn-temp-night {
     color: #00b8ff;
 }
 
-.ww-current-day {
+.nn-current-day {
     text-align: center;
 }
 
-.ww-current-day-temp {
+.nn-current-day-temp {
     float: left;
     width: 30%;
     text-align: left;
     font-size: 12px;
 }
 
-.ww-icon-current-day {
+.nn-icon-current-day {
     color: #8018eb;
     font-size: 50px;
     font-weight: bold;
     text-align: center;
 }
 
-.ww-day-and-location {
+.nn-day-and-location {
     float: right;
     width: 30%;
     padding: 15px 5px 0 0;
@@ -148,11 +148,11 @@
     line-height: 24px;
 }
 
-.ww-forecast-week {
+.nn-forecast-week {
     margin-top: 15px;
 }
 
-.ww-forecast-day {
+.nn-forecast-day {
     float: left;
     width: 60px;
     height: 130px;
@@ -160,23 +160,23 @@
     text-align: center;
 }
 
-.ww-forecast-day:nth-child(odd) {
+.nn-forecast-day:nth-child(odd) {
     background-color: #202020
 }
 
-.ww-icon-wrapper {
+.nn-icon-wrapper {
     width: 50px;
     line-height: 45px;
     text-align: center;
 }
 
-.ww-icon {
+.nn-icon {
     margin: 5px 0;
     font-size: 30px;
     font-weight: bold;
 }
 
-.ww-current-day .ww-icon {
+.nn-current-day .nn-icon {
     font-size: 81px;
     line-height: 81px;
 }
